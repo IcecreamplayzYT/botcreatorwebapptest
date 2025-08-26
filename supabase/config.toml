@@ -1,1 +1,7 @@
 project_id = "jefeojxilahlackoczze"
+
+[functions.ai-generate-command]
+verify_jwt = false
+
+[functions.ai-validate-command]
+verify_jwt = false
