@@ -14,7 +14,121 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      bots: {
+        Row: {
+          avatar_url: string | null
+          created_at: string
+          description: string | null
+          id: string
+          name: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          avatar_url?: string | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          name: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          avatar_url?: string | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          name?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      commands: {
+        Row: {
+          bot_id: string
+          command_type: string | null
+          created_at: string
+          description: string | null
+          flow: Json | null
+          generated_code: string | null
+          id: string
+          name: string
+          updated_at: string
+          user_code: string | null
+        }
+        Insert: {
+          bot_id: string
+          command_type?: string | null
+          created_at?: string
+          description?: string | null
+          flow?: Json | null
+          generated_code?: string | null
+          id?: string
+          name: string
+          updated_at?: string
+          user_code?: string | null
+        }
+        Update: {
+          bot_id?: string
+          command_type?: string | null
+          created_at?: string
+          description?: string | null
+          flow?: Json | null
+          generated_code?: string | null
+          id?: string
+          name?: string
+          updated_at?: string
+          user_code?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "commands_bot_id_fkey"
+            columns: ["bot_id"]
+            isOneToOne: false
+            referencedRelation: "bots"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      env_vars: {
+        Row: {
+          bot_id: string
+          created_at: string
+          description: string | null
+          id: string
+          key: string
+          updated_at: string
+          value: string
+        }
+        Insert: {
+          bot_id: string
+          created_at?: string
+          description?: string | null
+          id?: string
+          key: string
+          updated_at?: string
+          value: string
+        }
+        Update: {
+          bot_id?: string
+          created_at?: string
+          description?: string | null
+          id?: string
+          key?: string
+          updated_at?: string
+          value?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "env_vars_bot_id_fkey"
+            columns: ["bot_id"]
+            isOneToOne: false
+            referencedRelation: "bots"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never

@@ -5,3 +5,6 @@ verify_jwt = false
 
 [functions.ai-validate-command]
 verify_jwt = false
+
+[functions.export-bot-zip]
+verify_jwt = false

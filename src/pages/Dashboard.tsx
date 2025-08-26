@@ -2,15 +2,22 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Plus, Settings, Download, Edit, Copy, Trash2 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 import Header from "@/components/Header";
+import ExportModal from "@/components/ExportModal";
 
 const Dashboard = () => {
   const navigate = useNavigate();
+  const [exportModal, setExportModal] = useState<{ isOpen: boolean; botId: string; botName: string }>({
+    isOpen: false,
+    botId: '',
+    botName: ''
+  });
   
   // Mock data for demonstration
   const bots = [
     {
-      id: 1,
+      id: "bot-1",
       name: "ModBot Pro",
       avatar: "MB",
       description: "Advanced moderation bot with auto-ban and message filtering",
@@ -19,7 +26,7 @@ const Dashboard = () => {
       events: 5
     },
     {
-      id: 2,
+      id: "bot-2",
       name: "WelcomeHelper", 
       avatar: "WH",
       description: "Welcome messages and auto-role assignment for new members",
@@ -28,6 +35,10 @@ const Dashboard = () => {
       events: 2
     }
   ];
+
+  const handleExportBot = (botId: string, botName: string) => {
+    setExportModal({ isOpen: true, botId, botName });
+  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -105,7 +116,12 @@ const Dashboard = () => {
                   <Button variant="outline" size="sm" className="gap-2">
                     <Copy className="w-4 h-4" />
                   </Button>
-                  <Button variant="outline" size="sm" className="gap-2">
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    className="gap-2"
+                    onClick={() => handleExportBot(bot.id, bot.name)}
+                  >
                     <Download className="w-4 h-4" />
                   </Button>
                   <Button variant="outline" size="sm" className="gap-2 text-destructive hover:text-destructive">
@@ -139,6 +155,14 @@ const Dashboard = () => {
           </Card>
         </div>
       </div>
+
+      {/* Export Modal */}
+      <ExportModal
+        isOpen={exportModal.isOpen}
+        onClose={() => setExportModal({ isOpen: false, botId: '', botName: '' })}
+        botId={exportModal.botId}
+        botName={exportModal.botName}
+      />
     </div>
   );
 };
